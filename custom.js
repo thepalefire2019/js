@@ -42,7 +42,7 @@ $(document).on("click", "#add_to_cart", function(evt){
   evt.preventDefault();
   var product_id = $(this).attr('product');
   if(product_id != ''){
-    var url_string = SITE_URL + CONTROLLER + '/ajax_add_to_cart';
+    var url_string = SITE_URL + 'home/ajax_add_to_cart';
     var data_string = {'encrypted_id': product_id};
     $(".paste-data").html('<img src="' + SITE_URL + 'assets/images/loader.gif"  class="img-fluid mx-auto"/>');
     $("#modal-form").modal('show');
@@ -119,22 +119,48 @@ $(document).on("change", "#products_sort", function(evt){
   window.location.href = SITE_URL + CONTROLLER + '/lists/' + encrypted_id + '/' + sorting_type;
 });
 
+/*
+|----------------------------------------------
+|Show Address form
+|----------------------------------------------
+*/
+$(document).on("click", ".add_new_address", function(evt){
+  var value = $(this).val();
+  if(value == '0'){
+    var url_string = SITE_URL + CONTROLLER + '/ajax_add_address_form';
+    var data_string = {};
+    $.ajax({
+      url: url_string,
+      data: data_string,
+      type: 'POST',
+      dataType: 'HTML',
+      error: function () {
+          console.log('ERROR');
+      },
+      success: function (data) {
+        $('#new_address').html(data);
+      }
+    })
+  }else{
+    $('#new_address').html('');
+  }
+});
 
 /*
-|--------------------------------------------
-|Mobile Menu
-|--------------------------------------------
+|----------------------------------------------
+|Change profile picture
+|----------------------------------------------
 */
 
-$(document).on("click", ".right-head-mobile", function(e){
-  if( $(this).hasClass('menu-active') ){
-    $(this).removeClass('menu-active');
-    $( '.mobile-menu-screen' ).hide(500);
-    $( '.director' ).show(500);
-  }else{
-    $(this).addClass('menu-active');
-    $( '.mobile-menu-screen' ).show(500);
-    $( '.director' ).hide(500);
+$(document).on("click", "#change_dp", function (evt) {
+  evt.preventDefault();
+    $("#uploads").trigger('click');
+});
+
+
+$(document).on("change", "#uploads", function(e){
+  var file = $("#uploads").val();
+  if(file !== ''){
+    $("#update_dp").trigger('click');
   }
-  
 });
