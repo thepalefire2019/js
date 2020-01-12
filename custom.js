@@ -164,3 +164,23 @@ $(document).on("change", "#uploads", function(e){
     $("#update_dp").trigger('click');
   }
 });
+
+
+/*
+|--------------------------------------------
+|Mobile Menu
+|--------------------------------------------
+*/
+
+$(document).on("click", ".right-head-mobile", function(e){
+  if( $(this).hasClass('menu-active') ){
+    $(this).removeClass('menu-active');
+    $( '.mobile-menu-screen' ).hide(500);
+    $( '.director' ).show(500);
+  }else{
+    $(this).addClass('menu-active');
+    $( '.mobile-menu-screen' ).show(500);
+    $( '.director' ).hide(500);
+  }
+
+});
